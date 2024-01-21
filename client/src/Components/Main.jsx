@@ -1,16 +1,13 @@
+import ImageWithText from "./ImageWithText.jsx";
+
 export default function Main(){
-return(
-    <>
-        <div className="card w-96 bg-base-100 shadow-xl">
-            <figure><img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" /></figure>
-            <div className="card-body">
-                <h2 className="card-title">Shoes!</h2>
-                <p>If a dog chews shoes whose shoes does he choose?</p>
-                <div className="card-actions justify-end">
-                    <button className="btn btn-primary">Buy Now</button>
-                </div>
-            </div>
-        </div>
-    </>
-);
+    return(
+        <ImageWithText
+          direction={""}
+          text={"Szeretem a sajtot de nem szeretem a csípős sajtot"}
+          subHeading={"Csa most csak neked"}
+          heading={"Élj a mának"}
+          imageLink={"majd lessz itt kép"}
+        />
+    );
 }

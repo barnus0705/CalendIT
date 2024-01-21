@@ -2,8 +2,7 @@ import setLogOpen from "./Loginform.jsx";
 import React, {useState} from "react";
 import Loginform from "./Loginform.jsx";
 import Signupform from "./Signupform.jsx";
-export default function Navbar()
-{
+export default function Navbar() {
     const [visiblePopUp, setVisiblePopUp] = useState("None");
 
     {/*Open the Hamburger*/}
@@ -33,10 +32,10 @@ export default function Navbar()
                         <a className="btn btn-ghost text-xl font-bold">CalendIT</a>
                     </div>
                 </div>
-                <div className={"navbar-center space-x-10 hidden md:flex"}>
-                    <div><a href={"#"} className={"btn btn-primary bg-primary w-32"}>Item 1</a></div>
-                    <div><a href={"#"} className={"btn btn-primary bg-primary w-32"}>Item 2</a></div>
-                    <div><a href={"#"} className={"btn btn-primary bg-primary w-32"}>Item 3</a></div>
+                <div className={"navbar-center menu menu-horizontal space-x-10 hidden md:flex"}>
+                    <div><a href={"#"} className={"w-32 font-semibold hover:bg-base-200 hover:text-white py-2 px-4"}>Home</a></div>
+                    <div><a href={"#"} className={"w-32 font-semibold hover:bg-base-200 hover:text-white py-2 px-4"}>About us</a></div>
+                    <div><a href={"#"} className={"w-32 font-semibold hover:bg-base-200 hover:text-white py-2 px-4"}>Calendar</a></div>
                 </div>
                 <div className={"navbar-end"}>
                     <div className={"flex md:mr-10"}>
@@ -47,18 +46,18 @@ export default function Navbar()
                         </label>
                     </div>
                     <div className="flex mr-4">
-                        <button className={"mr-4 btn bg-primary btn-primary hidden lg:flex"}
+                        <button className={"mr-4 btn bg-primary btn-primary hidden md:flex"}
                                 onClick={() => setVisiblePopUp(popup => popup === "SignUp" ? "None" : "SignUp")}>SignUp</button>
-                        <button className={"mr-4 btn bg-primary btn-primary hidden lg:flex"}
+                        <button className={"mr-4 btn bg-primary btn-primary hidden md:flex"}
                                 onClick={() => setVisiblePopUp(popup => popup === "LogIn" ? "None" : "LogIn")}>LogIn</button>
                     </div>
                 </div>
             </div>
             <div>
                 <ul className={isOpen ? "block md:hidden menu bg-base-200 w-auto rounded-box mr-4 text-2xl mt-4" : "hidden"}>
-                    <li><a>Item 1</a></li>
-                    <li><a>Item 2</a></li>
-                    <li><a>Item 3</a></li>
+                    <li><a>Home</a></li>
+                    <li><a>About us</a></li>
+                    <li><a>Calendar</a></li>
                     <hr className={`my-2 mx-0.5 border-1 ${theme === "dark" ? "border-white" : "border-black"}`}/>
                     <li className={"transition rounded delay-75 hover:bg-primary duration-300 hover:btn-primary"}>
                         <a onClick={() => setVisiblePopUp(popup => popup === "LogIn" ? "None" : "LogIn")}>LogIn</a>
