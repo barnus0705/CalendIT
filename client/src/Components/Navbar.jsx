@@ -59,11 +59,13 @@ export default function Navbar() {
                     <li><a>About us</a></li>
                     <li><a>Calendar</a></li>
                     <hr className={`my-2 mx-0.5 border-1 ${theme === "dark" ? "border-white" : "border-black"}`}/>
-                    <li className={"transition rounded delay-75 hover:bg-primary duration-300 hover:btn-primary"}>
-                        <a onClick={() => setVisiblePopUp(popup => popup === "LogIn" ? "None" : "LogIn")}>LogIn</a>
+                    <li>
+                        <a className={"hover:bg-primary hover:text-black"}
+                           onClick={() => setVisiblePopUp(popup => popup === "LogIn" ? "None" : "LogIn")}>LogIn</a>
                     </li>
-                    <li className={"transition rounded delay-75 hover:bg-primary duration-300 hover:btn-primary"}>
-                        <a onClick={() => setVisiblePopUp(popup => popup === "SignUp" ? "None" : "SignUp")}>SignUp</a>
+                    <li>
+                        <a className={"hover:bg-primary hover:text-black"}
+                           onClick={() => setVisiblePopUp(popup => popup === "SignUp" ? "None" : "SignUp")}>SignUp</a>
                     </li>
                 </ul>
             </div>

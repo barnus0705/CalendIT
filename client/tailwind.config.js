@@ -27,11 +27,11 @@ export default {
 
           "info": "#00c8ff",
 
-          "success": "#00dbab",
+          "success": "#7DDF64",
 
           "warning": "#be8100",
 
-          "error": "#ff636b",
+          "error": "#DA2C38",
         },
         dark: {
           "primary": "#00cfe8",
@@ -46,11 +46,11 @@ export default {
 
           "info": "#39c1ff",
 
-          "success": "#008959",
+          "success": "#7DDF64",
 
           "warning": "#bf7600",
 
-          "error": "#ff4963",
+          "error": "#DA2C38",
         },
       },
     ],
