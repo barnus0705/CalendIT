@@ -1,9 +1,13 @@
 import setLogOpen from "./Loginform.jsx";
-import React, {useState} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import Loginform from "./Loginform.jsx";
 import Signupform from "./Signupform.jsx";
+import {Navigate} from "react-router-dom";
+import UserContext from "../Auth/UserContext.jsx";
+import userContext from "../Auth/UserContext.jsx";
 export default function Navbar() {
     const [visiblePopUp, setVisiblePopUp] = useState("None");
+    const { user, setUser } = useContext(UserContext);
 
     {/*Open the Hamburger*/}
     const [isOpen, setOpen] = useState(false);
@@ -13,6 +17,7 @@ export default function Navbar() {
     const toggleTheme = () => {
         setTheme(theme === 'dark' ? 'light' : 'dark');
     };
+
 
     React.useEffect(() => {
         document.querySelector('html').setAttribute('data-theme', theme);
@@ -33,9 +38,11 @@ export default function Navbar() {
                     </div>
                 </div>
                 <div className={"navbar-center menu menu-horizontal space-x-10 hidden md:flex"}>
-                    <div><a href={"#"} className={"w-32 font-semibold hover:bg-base-200 hover:text-white py-2 px-4"}>Home</a></div>
-                    <div><a href={"#"} className={"w-32 font-semibold hover:bg-base-200 hover:text-white py-2 px-4"}>About us</a></div>
-                    <div><a href={"#"} className={"w-32 font-semibold hover:bg-base-200 hover:text-white py-2 px-4"}>Calendar</a></div>
+                    <div><a href={"/"} className={"w-32 font-semibold hover:bg-base-200 hover:text-white py-2 px-4"}>Home</a></div>
+                    <div><a href={"/about-us"} className={"w-32 font-semibold hover:bg-base-200 hover:text-white py-2 px-4"}>About us</a></div>
+                    { user !== null && (
+                        <div><a href={"/main"} className={"w-32 font-semibold hover:bg-base-200 hover:text-white py-2 px-4"}>Calendar</a></div>
+                    )}
                 </div>
                 <div className={"navbar-end"}>
                     <div className={"flex md:mr-10"}>
@@ -46,10 +53,18 @@ export default function Navbar() {
                         </label>
                     </div>
                     <div className="flex mr-4">
-                        <button className={"mr-4 btn bg-primary btn-primary hidden md:flex"}
-                                onClick={() => setVisiblePopUp(popup => popup === "SignUp" ? "None" : "SignUp")}>SignUp</button>
-                        <button className={"mr-4 btn bg-primary btn-primary hidden md:flex"}
-                                onClick={() => setVisiblePopUp(popup => popup === "LogIn" ? "None" : "LogIn")}>LogIn</button>
+                        { user === null && (
+                            <button className={"mr-4 btn bg-primary btn-primary hidden md:flex"}
+                                    onClick={() => setVisiblePopUp(popup => popup === "SignUp" ? "None" : "SignUp")}>SignUp</button>
+                        )}
+                        { user === null && (
+                            <button className={"mr-4 btn bg-primary btn-primary hidden md:flex"}
+                                    onClick={() => setVisiblePopUp(popup => popup === "LogIn" ? "None" : "LogIn")}>LogIn</button>
+                        )}
+
+                        { user !== null && (
+                            <button className={"mr-4 btn bg-primary btn-primary hidden md:flex"} onClick={() => setUser(null)}>LogOut</button>
+                        )}
                     </div>
                 </div>
             </div>
@@ -59,14 +74,25 @@ export default function Navbar() {
                     <li><a>About us</a></li>
                     <li><a>Calendar</a></li>
                     <hr className={`my-2 mx-0.5 border-1 ${theme === "dark" ? "border-white" : "border-black"}`}/>
-                    <li>
-                        <a className={"hover:bg-primary hover:text-black"}
-                           onClick={() => setVisiblePopUp(popup => popup === "LogIn" ? "None" : "LogIn")}>LogIn</a>
-                    </li>
-                    <li>
-                        <a className={"hover:bg-primary hover:text-black"}
-                           onClick={() => setVisiblePopUp(popup => popup === "SignUp" ? "None" : "SignUp")}>SignUp</a>
-                    </li>
+                    { user === null && (
+                        <li>
+                            <a className={"hover:bg-primary hover:text-black"}
+                               onClick={() => setVisiblePopUp(popup => popup === "LogIn" ? "None" : "LogIn")}>LogIn</a>
+                        </li>
+                    )}
+                    { user === null && (
+                        <li>
+                            <a className={"hover:bg-primary hover:text-black"}
+                               onClick={() => setVisiblePopUp(popup => popup === "SignUp" ? "None" : "SignUp")}>SignUp</a>
+                        </li>
+                    )}
+
+                    { user !== null && (
+                        <li>
+                            <a className={"hover:bg-primary hover:text-black"}>LogOut</a>
+                        </li>
+                    )}
+
                 </ul>
             </div>
             {visiblePopUp === "LogIn" && (<Loginform />)}

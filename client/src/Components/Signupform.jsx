@@ -1,5 +1,5 @@
 import Input from "./Input.jsx";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 export default function Signupform(){
 
@@ -11,6 +11,20 @@ export default function Signupform(){
     const [validPassword1, setValidPassword1] = useState(false);
     const [validPassword2, setValidPassword2] = useState(false);
     const [validRePassword, setValidRePassword] = useState(false);
+
+    const signUp = useCallback(() => {
+        fetch("http://localhost:5000/users",{
+            method:"post",
+            body:JSON.stringify({
+                email,
+                password
+            }),
+            headers:{
+                "Content-Type" : "application/json",
+                "Accept" : "application/json"
+            }
+        })
+    },[email,password]);
 
 
     useEffect(() => {
@@ -59,7 +73,7 @@ export default function Signupform(){
     }, [password]);
 
     return(
-        <form className={"absolute card card-compact w-full bg-primary shadow-xl max-w-96 m-auto left-0 right-0 lg:w-96 lg:mr-10 mt-2"}>
+        <div className={"absolute card card-compact w-full bg-primary shadow-xl max-w-96 m-auto left-0 right-0 lg:w-96 lg:mr-10 mt-2"}>
             <div className={"card-body mx-8"}>
                 <h1 className={"card-title btn-primary text-2xl"}>SignUp</h1>
                 <Input placeholder={"loremipsum@lorem.ipsum"}
@@ -129,9 +143,13 @@ export default function Signupform(){
                     )}
                 </Input>
                 <div className="card-actions justify-end w-full">
-                    <button className="btn text-lg mt-4" disabled={!validEmail || !validPassword1 || !validPassword2 || !validRePassword}>Signup</button>
+                    <button className="btn text-lg mt-4"
+                            disabled={!validEmail || !validPassword1 || !validPassword2 || !validRePassword}
+                            onClick={signUp}>
+                        Signup
+                    </button>
                 </div>
             </div>
-        </form>
+        </div>
     );
 }
