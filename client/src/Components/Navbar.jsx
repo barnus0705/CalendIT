@@ -1,10 +1,8 @@
-import setLogOpen from "./Loginform.jsx";
 import React, {useCallback, useContext, useEffect, useState} from "react";
 import Loginform from "./Loginform.jsx";
 import Signupform from "./Signupform.jsx";
-import {Navigate} from "react-router-dom";
 import UserContext from "../Auth/UserContext.jsx";
-import userContext from "../Auth/UserContext.jsx";
+
 export default function Navbar() {
     const [visiblePopUp, setVisiblePopUp] = useState("None");
     const { user, setUser } = useContext(UserContext);
