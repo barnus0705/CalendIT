@@ -17,10 +17,13 @@
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "googleapis": "^134.0.0",
+    "inquirer": "^9.2.20",
+    "nodemailer": "^6.9.13",
     "passport": "^0.7.0",
     "passport-google-oauth2": "^0.2.0",
     "passport-google-oidc": "^0.1.0",
-    "pg": "^8.11.5"
+    "pg": "^8.11.5",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"

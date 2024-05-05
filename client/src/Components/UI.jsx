@@ -1,10 +1,17 @@
 import Calendit from "./Calendit.jsx";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import * as React from "react";
+import UserContext from "../Auth/UserContext.jsx";
 
 export default function UI(){
     const [data, setData] = useState([]);
-    const [logged, isLogged] = useState(false);
+    const [showButton, setShowbutton] = useState(false);
+    const { user } = React.useContext(UserContext);
+    useEffect(() =>{
+        if (!user)return;
+        setShowbutton(user.Admin);
+    },[user])
+
     const googleClick = () =>{
         window.location.href = "http://localhost:5000/auth/google"
     };
@@ -28,8 +35,15 @@ export default function UI(){
 
     return(
         <>
-            <button onClick={googleClick}>Login</button>
-            <button onClick={uploadClick}>upload</button>
+            {showButton === true && (
+                <div className={"flex"}>
+                    <button className={"flex bg-white rounded-2xl items-center p-2 m-2"} onClick={googleClick}>
+                        <img className="w-6 h-6 mr-2" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo"/>
+                        <span className={"text-black"}>Login with Google</span>
+                    </button>
+                    <button className={"btn m-2 btn-primary"} onClick={uploadClick}>Upload</button>
+                </div>
+            )}
             <Calendit data={data}
                       setData={setData}
             />

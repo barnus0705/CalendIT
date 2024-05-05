@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
 import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
 import {
     Scheduler,
@@ -13,7 +12,6 @@ import {
 import UserContext from "../Auth/UserContext.jsx";
 
 
-
 const PREFIX = 'calendar';
 export const classes = {
     container: `${PREFIX}-container`,
@@ -23,14 +21,26 @@ export const classes = {
 const currentDate = new Date().toISOString().split('T')[0];
 
 export default ({ data, setData }) => {
-    //const [data, setData] = React.useState([]);
     const { user } = React.useContext(UserContext);
 
+    const [editingOptions, setEditingOptions] = React.useState({
+        allowAdding: true,
+        allowDeleting: false,
+        allowUpdating: false,
+        allowDragging: false,
+        allowResizing: false,
+    });
+    const [windowSize, setWindowSize] = React.useState({
+        width: window.innerWidth,
+        height: window.innerHeight,
+        Form: "Week"
+    });
     React.useEffect(() => {
+
 
         if (!user) return;
         // after auth is done, write `` instead of ''
-        fetch(`http://localhost:5000/events/${user.ID}`).then(response => response.json())
+        fetch(`http://localhost:5000/events`).then(response => response.json())
             .then(calendarData => {
                 const userData = calendarData.map(responseData => {
                    return {
@@ -46,16 +56,26 @@ export default ({ data, setData }) => {
                 console.log(userData);
                 setData(userData)
             });
+        if (user.Admin)
+            setEditingOptions({
+                allowAdding: true,
+                allowDeleting: true,
+                allowUpdating: true,
+                allowDragging: true,
+                allowResizing: true,
+            });
+        setWindowSize({
+            width: window.innerWidth,
+            height: window.innerHeight
+        })
+        if (windowSize.width < 416 && windowSize.height < 672){
+            setWindowSize({Form: "Day"});
+        }else {
+            setWindowSize({Form: "Week"});
+        }
+        console.log(windowSize)
+        console.log(window.innerWidth+" "+window.innerHeight)
     }, [user]);
-
-
-    const [editingOptions, setEditingOptions] = React.useState({
-        allowAdding: true,
-        allowDeleting: true,
-        allowUpdating: true,
-        allowDragging: true,
-        allowResizing: true,
-    });
 
     const {
         allowAdding, allowDeleting, allowUpdating, allowResizing, allowDragging,
@@ -133,8 +153,8 @@ export default ({ data, setData }) => {
 
     return (
         <Paper>
-            <Scheduler data={data} height={700}>
-                <ViewState defaultCurrentViewName={"Week"}
+            <Scheduler data={data} height={720}>
+                <ViewState defaultCurrentViewName={windowSize.Form}
                            defaultCurrentDate={currentDate}
                 />
 
@@ -142,8 +162,8 @@ export default ({ data, setData }) => {
 
                 <IntegratedEditing />
 
-                <DayView startDayHour={0} endDayHour={24}  />
-                <WeekView startDayHour={0} endDayHour={24} timeTableCellComponent={TimeTableCell} />
+                <DayView startDayHour={7} endDayHour={20}  />
+                <WeekView startDayHour={7} endDayHour={20} timeTableCellComponent={TimeTableCell} />
                 <MonthView />
 
                 <Toolbar />
@@ -151,8 +171,7 @@ export default ({ data, setData }) => {
                 <TodayButton />
                 <ViewSwitcher />
                 <Appointments />
-
-                <AppointmentTooltip showOpenButton showDeleteButton={allowDeleting} />
+                <AppointmentTooltip showOpenButton={allowUpdating} showDeleteButton={allowDeleting} />
                 <AppointmentForm commandButtonComponent={CommandButton} />
                 <DragDropProvider allowDrag={allowDrag} allowResize={allowResize} />
             </Scheduler>

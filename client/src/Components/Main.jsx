@@ -4,10 +4,10 @@ export default function Main(){
     return(
         <ImageWithText
           direction={""}
-          text={"Szeretem a sajtot de nem szeretem a csípős sajtot"}
-          subHeading={"Csa most csak neked"}
-          heading={"Élj a mának"}
-          imageLink={"majd lessz itt kép"}
+          text={"CalendIT is an appointment booking application you can use it for company use cases"}
+          subHeading={""}
+          heading={"Simple Easy to use You want more?"}
+          imageLink={"./calendar.png"}
         />
     );
 }
