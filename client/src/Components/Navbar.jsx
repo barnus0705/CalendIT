@@ -62,9 +62,11 @@ export default function Navbar() {
             </div>
             <div>
                 <ul className={isOpen ? "block md:hidden menu bg-base-200 w-auto rounded-box mr-4 text-2xl mt-4" : "hidden"}>
-                    <li><a>Home</a></li>
-                    <li><a>About us</a></li>
-                    <li><a>Calendar</a></li>
+                    <li><a href={"/"}>Home</a></li>
+                    <li><a href={"/about-us"}>About us</a></li>
+                    {user !== null && (
+                        <li><a href={"/main"}>Calendar</a></li>
+                    )}
                     <hr className={`my-2 mx-0.5 border-1 ${theme === "dark" ? "border-white" : "border-black"}`}/>
                     { user === null && (
                         <li>

@@ -36,8 +36,6 @@ export default ({ data, setData }) => {
         Form: "Week"
     });
     React.useEffect(() => {
-
-
         if (!user) return;
         // after auth is done, write `` instead of ''
         fetch(`http://localhost:5000/events`).then(response => response.json())

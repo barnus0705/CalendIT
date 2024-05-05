@@ -22,7 +22,7 @@ const adminUser = async (user) =>{
         const rl = readline.createInterface(input,output)
         console.log("We dont have an admin user so you need to give me one!\n")
         rl.question(`Give me an email address (lorem.ipsum@lorem.ipsum):\n`,(email) =>{
-            rl.question(`Give me a password (8 long min: 1 A, 1 a, 1 number):\n`, (password) =>{
+            rl.question(`Give me a password:\n`, (password) =>{
                 client.query('INSERT INTO "Users"."User" ("Password", "Email", "Admin") VALUES ($1, $2, true);', [
                         createHash('sha256').update(password).digest('hex'),email],
                     (error, result) => {
